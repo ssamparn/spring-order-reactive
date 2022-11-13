@@ -1,0 +1,17 @@
+server:
+  port: 8091
+
+spring:
+  data:
+    mongodb:
+      #      commented for embedded mongo
+      #      host: localhost
+      #      port: 27017
+      database: reactive-product-database
+      username: root
+      password: rootpassword
+      authentication-database: admin
+      uri: mongodb://root:rootpassword@localhost:27017/reactive-product-database?authSource=admin&authMechanism=SCRAM-SHA-1
+  mongodb:
+    embedded:
+      version: 5.0.6
