@@ -16,8 +16,7 @@ public class UserService {
     private final UsersR2DbcRepository usersRepository;
 
     public Flux<User> getAllUsers() {
-        return this.usersRepository
-                .findAll()
+        return this.usersRepository.findAll()
                 .map(responseFactory::toModel);
     }
 

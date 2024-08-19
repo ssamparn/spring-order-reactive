@@ -18,8 +18,7 @@ public class ProductService {
     private final Sinks.Many<Product> productsSink;
 
     public Flux<Product> getAllProducts() {
-        return this.productRepository
-                .findAll()
+        return this.productRepository.findAll()
                 .map(responseFactory::toModel);
     }
 
@@ -43,12 +42,8 @@ public class ProductService {
     }
 
     public Mono<Product> updateProduct(String id, Mono<Product> productMono) {
-
-        return productRepository
-                .findById(id)
-                .flatMap(productEntity -> productMono
-                        .map(responseFactory::toEntity)
-                        .doOnNext(entity -> entity.setId(id)))
+        return productRepository.findById(id)
+                .flatMap(productEntity -> productMono.map(responseFactory::toEntity).doOnNext(entity -> entity.setId(id)))
                 .flatMap(this.productRepository::save)
                 .map(responseFactory::toModel);
     }

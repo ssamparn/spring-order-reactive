@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Comparator;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/product")
@@ -25,7 +27,8 @@ public class ProductRestController {
 
     @GetMapping("/get/all")
     public Flux<Product> getAllProducts() {
-        return this.productService.getAllProducts();
+        return this.productService.getAllProducts()
+                .sort(Comparator.comparing(id -> Integer.parseInt(id.getId()))); // sorting products based on product id.
     }
 
     @GetMapping("/get/{id}")
@@ -57,6 +60,4 @@ public class ProductRestController {
     public Mono<Void> deleteProduct(@PathVariable(value = "id") String id) {
         return this.productService.deleteProduct(id);
     }
-
-
 }
